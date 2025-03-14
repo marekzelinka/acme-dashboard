@@ -102,16 +102,19 @@ async function seedRevenue() {
 }
 
 export async function GET() {
-  try {
-    const result = await sql.begin((sql) => [
-      seedUsers(),
-      seedCustomers(),
-      seedInvoices(),
-      seedRevenue(),
-    ]);
+  return Response.json({
+    message: "Uncomment the lines below and remove this line. ",
+  });
+  // try {
+  //   const result = await sql.begin((sql) => [
+  //     seedUsers(),
+  //     seedCustomers(),
+  //     seedInvoices(),
+  //     seedRevenue(),
+  //   ]);
 
-    return Response.json({ message: "Database seeded successfully" });
-  } catch (error) {
-    return Response.json({ error }, { status: 500 });
-  }
+  //   return Response.json({ message: "Database seeded successfully" });
+  // } catch (error) {
+  //   return Response.json({ error }, { status: 500 });
+  // }
 }
