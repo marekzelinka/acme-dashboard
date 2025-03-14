@@ -1,8 +1,8 @@
+import { lusitana } from "@/app/ui/fonts";
 import styles from "@/app/ui/home.module.css";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import Link from "next/link";
-import { lusitana } from "./ui/fonts";
 
 export default function Page() {
   return (
