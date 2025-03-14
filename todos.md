@@ -1,0 +1,2 @@
+- [ ] search input in invoices and customers page should have the type="search"
+- [ ] research using `<Form>` for search form and others
