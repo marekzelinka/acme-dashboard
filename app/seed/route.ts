@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import postgres from "postgres";
 import { customers, invoices, revenue, users } from "../lib/placeholder-data";
 
-const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
+const sql = postgres(process.env.DATABASE_URL!, { ssl: "require" });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function seedUsers() {
