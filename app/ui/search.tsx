@@ -1,7 +1,11 @@
 "use client";
 
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowPathIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/outline";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useTransition } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
 export default function Search({ placeholder }: { placeholder: string }) {
@@ -9,17 +13,21 @@ export default function Search({ placeholder }: { placeholder: string }) {
   const pathname = usePathname();
   const { replace } = useRouter();
 
+  const [isPending, startTransition] = useTransition();
+
   const handleSearch = useDebouncedCallback((term: string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("page", "1");
+    startTransition(() => {
+      const params = new URLSearchParams(searchParams);
+      params.set("page", "1");
 
-    if (term) {
-      params.set("query", term);
-    } else {
-      params.delete("query");
-    }
+      if (term) {
+        params.set("query", term);
+      } else {
+        params.delete("query");
+      }
 
-    replace(`${pathname}?${params}`);
+      replace(`${pathname}?${params}`);
+    });
   }, 300);
 
   return (
@@ -35,7 +43,9 @@ export default function Search({ placeholder }: { placeholder: string }) {
         }}
         defaultValue={searchParams.get("query") ?? undefined}
       />
-      <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+      <div className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900">
+        {isPending ? <ArrowPathIcon /> : <MagnifyingGlassIcon />}
+      </div>
     </div>
   );
 }
